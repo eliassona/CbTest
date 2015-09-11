@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="/Users/anderse/source/mz-main/runtime/java/rxjava/rxjava-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/anderse/source/mz-main/runtime/java/json-simple-1.1.1/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/anderse/source/mz-main/runtime/java/mockito-1.9.5/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="/Users/anderse/source/mz-main/runtime/java/Couchbase-Java-Client-2.1.4/couchbase-core-io-1.1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/anderse/source/mz-main/runtime/java/Couchbase-Java-Client-2.1.4/couchbase-java-client-2.1.4.jar"/>
+	<classpathentry kind="lib" path="/runtime/java/Couchbase-Java-Client-1.4.6/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="/runtime/java/Couchbase-Java-Client-1.4.6/couchbase-client-1.4.6.jar" sourcepath="/runtime/java/Couchbase-Java-Client-1.4.6/couchbase-client-1.4.6-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/runtime/java/Couchbase-Java-Client-1.4.6/couchbase-client-1.4.6-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/runtime/java/Couchbase-Java-Client-1.4.6/httpcore-4.3.jar"/>
+	<classpathentry kind="lib" path="/runtime/java/Couchbase-Java-Client-1.4.6/netty-3.5.5.Final.jar"/>
+	<classpathentry kind="lib" path="/runtime/java/Couchbase-Java-Client-1.4.6/spymemcached-2.11.5-dr-vf1.jar" sourcepath="/runtime/java/Couchbase-Java-Client-1.4.6/spymemcached-2.11.5-dr-vf1-sources.jar"/>
+	<classpathentry kind="lib" path="/runtime/java/Couchbase-Java-Client-1.4.6/httpcore-nio-4.3.jar"/>
+	<classpathentry kind="lib" path="/runtime/java/Couchbase-Java-Client-1.4.6/jettison-1.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
