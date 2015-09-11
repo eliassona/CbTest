@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -89,14 +88,12 @@ public class ViewTestOldCbClient {
 
 
 
-	private static void doTest(final CouchbaseClient client,
-			final ExecutorService executor) throws InterruptedException {
-		final AtomicLong longestDuration = new AtomicLong();
+	private static void doTest(final CouchbaseClient client, final ExecutorService executor) throws InterruptedException {
 		while (true) {
+			final AtomicLong longestDuration = new AtomicLong();
 			final View view = client.getView("timeout", "timeout");
 			final Query query = initializeKeyRangeQuery(Stale.FALSE, System.currentTimeMillis() + "");
 			final Paginator pa = client.paginatedQuery(view, query, 1000);
-			final int n = 0;
 			System.out.println("Do timeouts");
 			while (pa.hasNext()) {
 				final Iterator<ViewRow> iter = pa.next().iterator();
