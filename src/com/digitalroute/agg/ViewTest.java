@@ -42,16 +42,15 @@ import com.couchbase.client.java.view.Stale;
 public class ViewTest {
 	public static final String SESSION_TIMEOUT = "SessionTimeout";
 
-	static RawJsonDocument createJsonDoc(final String id, final long nextTimeout) {
+	static RawJsonDocument createJsonDoc(final String id, final long nextTimeout, final int nrOfFields) {
 		final Map<String, Object> m = new HashMap<>();
 		m.put(SESSION_TIMEOUT, nextTimeout(nextTimeout));
-		return RawJsonDocument.create(id, moreData(m));
+		return RawJsonDocument.create(id, moreData(m, nrOfFields));
 	}
-	private static String moreData(final Map<String, Object> obj) {
-		obj.put("f1", "a ssssssssssssssssssssssssssssssssssssssstrringgggg");
-		obj.put("f2", Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
-		obj.put("f3", Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
-		obj.put("f4", 10000);
+	private static String moreData(final Map<String, Object> obj, final int nrOfFields) {
+		for (int i = 0; i < nrOfFields; i++) {
+			obj.put("f" + i, Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
+		}
 		return JSONValue.toJSONString(obj);
 	}
 	public static long nextTimeout(final long nextTimeout) {
@@ -123,7 +122,7 @@ public class ViewTest {
 	}
 	
 	
-	public static void createDocs(final CbFacade cbFacade, final int size, final long nextTimeout) {
+	public static void createDocs(final CbFacade cbFacade, final int size, final long nextTimeout, final int nrOfFields) {
 		final Semaphore semaphore = new Semaphore(50);
 		Observable.
 		from(ids(size)).
@@ -135,7 +134,7 @@ public class ViewTest {
 				} catch (final InterruptedException e) {
 					e.printStackTrace();
 				}
-				return createJsonDoc(id, nextTimeout);
+				return createJsonDoc(id, nextTimeout, nrOfFields);
 			}
 	    }).
 	    flatMap(new Func1<RawJsonDocument, Observable<? extends RawJsonDocument>>() {
@@ -246,7 +245,7 @@ public class ViewTest {
 		
 		createViewDef(bucket);
 		
-		createDocs(cbFacade, 1000000, 120000);
+		createDocs(cbFacade, 1000000, 120000, 100);
 		
 		
 		

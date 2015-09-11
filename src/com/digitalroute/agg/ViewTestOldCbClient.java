@@ -40,12 +40,15 @@ public class ViewTestOldCbClient {
 
 	/**
 	 * Create view def and documents with the new clients (because that code already exists)
+	 * @param nrOfDocs 
+	 * @param nextTimeoutInMs 
+	 * @param nrOfFields 
 	 */
-	public static void createViewAndDocs() {
+	public static void createViewAndDocs(final int nrOfDocs, final long nextTimeoutInMs, final int nrOfFields) {
 		final Bucket bucket = CouchbaseCluster.create().openBucket("aggregation");
 		ViewTest.createViewDef(bucket);
 		final CouchbaseStatistics statistics = mock(CouchbaseStatistics.class);
-		ViewTest.createDocs(new CbFacadeImpl(false, ViewTest.createCrudFacade(bucket, statistics)), 1000000, 10000);
+		ViewTest.createDocs(new CbFacadeImpl(false, ViewTest.createCrudFacade(bucket, statistics)), nrOfDocs, nextTimeoutInMs, nrOfFields);
 		
 	}
 	
@@ -75,14 +78,28 @@ public class ViewTestOldCbClient {
 
 	}
 
+	/**
+	 * 
+	 * @param args args[0] = nrOfDocs, args[1] = nextTimeoutInMs, args[2] = nrOfFields in each doc 
+	 */
 	public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
 		final CouchbaseClient client = new CouchbaseClient(Arrays.asList(new URI(String.format("http://%s:%s/pools", "localhost", 8091))), "aggregation", "");
 		if (!client.flush().get()) throw new IllegalStateException("Couldn't flush couchbase");
 //		
 		final ExecutorService executor = createExec();
-		createViewAndDocs();
+		createViewAndDocs(argOf(args, 0, 1000000), argOf(args, 1, 10000), argOf(args, 2, 100));
 		
 		doTest(client, executor);
+	}
+
+
+ 
+
+	private static int argOf(final String[] args, final int ix, final int defaultValue) {
+		if (ix < args.length) 
+			return Integer.valueOf(args[ix]);
+		else 
+			return defaultValue;
 	}
 
 
