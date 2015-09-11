@@ -31,6 +31,12 @@ import com.couchbase.client.protocol.views.Stale;
 import com.couchbase.client.protocol.views.View;
 import com.couchbase.client.protocol.views.ViewRow;
 
+
+/**
+ * Test the view on the 1.4.* couchbase client
+ * @author anderse
+ *
+ */
 public class ViewTestOldCbClient {
 
 	/**

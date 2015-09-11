@@ -34,7 +34,11 @@ import com.couchbase.client.java.view.Stale;
 
 
 
-
+/**
+ * Test the view on the new 2.* couchbase client
+ * @author anderse
+ *
+ */
 public class ViewTest {
 	public static final String SESSION_TIMEOUT = "SessionTimeout";
 
@@ -238,11 +242,11 @@ public class ViewTest {
 		final CouchbaseStatistics statistics = Mockito.mock(CouchbaseStatistics.class);
 		final CrudFacade crudFacade = createCrudFacade(bucket, statistics);
 		final CbFacade cbFacade = new CbFacadeImpl(false, crudFacade);
-//		bucket.bucketManager().flush();
+		bucket.bucketManager().flush();
 		
 		createViewDef(bucket);
 		
-//		createDocs(cbFacade, 1000000, 120000);
+		createDocs(cbFacade, 1000000, 120000);
 		
 		
 		
