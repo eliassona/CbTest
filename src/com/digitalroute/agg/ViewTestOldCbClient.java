@@ -72,12 +72,19 @@ public class ViewTestOldCbClient {
 
 	public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
 		final CouchbaseClient client = new CouchbaseClient(Arrays.asList(new URI(String.format("http://%s:%s/pools", "localhost", 8091))), "aggregation", "");
-//		Thread.sleep(1000);
-//		assert client.flush().get();
+		if (!client.flush().get()) throw new IllegalStateException("Couldn't flush couchbase");
 //		
 		final ExecutorService executor = createExec();
 		createViewAndDocs();
+		
+		doTest(client, executor);
+	}
 
+
+
+
+	private static void doTest(final CouchbaseClient client,
+			final ExecutorService executor) throws InterruptedException {
 		final AtomicLong longestDuration = new AtomicLong();
 		while (true) {
 			final View view = client.getView("timeout", "timeout");
@@ -95,8 +102,6 @@ public class ViewTestOldCbClient {
 			System.out.println(String.format("Longest timeout %s ms", longestDuration.get()));
 			Thread.sleep(10000);
 		}
-		
-		
 	}		
 
 }
