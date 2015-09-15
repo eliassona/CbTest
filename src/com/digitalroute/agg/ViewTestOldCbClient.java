@@ -88,6 +88,7 @@ public class ViewTestOldCbClient {
 //		
 		final ExecutorService executor = createExec();
 		createViewAndDocs(argOf(args, 0, 1000000), argOf(args, 1, 10000), argOf(args, 2, 100));
+		System.out.println("Done!");
 		
 		doTest(client, executor);
 	}
